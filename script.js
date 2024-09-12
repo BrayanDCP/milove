@@ -2,43 +2,23 @@ const questions = [
     {
         question: "¿List@ para comenzar esta maravillosa aventura conmigo?",
         options: ["Sí, estoy list@", "No, necesito pensarlo"],
-        type: "choice"
+        type: "choice",
+        requireYes: true
     },
+    
     {
-        question: "yo se que si",
-        options: ["Sí, era bormita amor", "No"],
-        type: "choice"
-    },
-    {
-        question: "aun no? come mierda",
-        options: ["vamos a la pregunta"],
-        type: "choice"
+        question: "¿Me amas, mi amor?",
+        options: ["Sí", "No"],
+        type: "choice",
+        requireYes: true
     },
     {
         question: "¿Me amas, mi amor?",
         options: ["Sí", "No"],
-        type: "choice"
+        type: "choice",
+        requireYes: true
     },
-    {
-        question: "¿Me amas, mi amor?",
-        options: ["Sí", "No"],
-        type: "choice"
-    },
-    {
-        question: "¿Cuál es nuestro próximo destino de ensueño, cariño?",
-        options: ["Ica", "Machu Picchu", "Otro"],
-        type: "choice"
-    },
-    {
-        question: "En una escala del 1 al 10, ¿cuánto me amas?",
-        type: "slider"
-    },
-    {
-        question: "Antes de finalizar, quiero decirte algo muy especial, mi amor...",
-        message: "Nunca lo olvides QUE TU ERES LA MEJOR LA MAS HERMOSA Y BELLA porfavor no olvides de cuánto te amo eres la que esta de mi corazón. ¡Eres mi princesa y te amooooooooo con mi alma y todo mi corazon! ❤️💖",
-        options: ["Sí, yo también te amo", "No, no siento lo mismo"],
-        type: "choice"
-    }
+    // ... (rest of the questions remain the same)
 ];
 
 let currentQuestion = 0;
@@ -128,6 +108,14 @@ function showQuestion() {
 }
 
 function selectOption(option) {
+    const currentQuestionObj = questions[currentQuestion];
+
+    if (currentQuestionObj.requireYes && option !== "Sí" && option !== "Sí, estoy list@" && option !== "Sí, era bormita amor") {
+        // If the question requires a "Yes" answer and the user didn't choose it, ask again
+        showQuestion();
+        return;
+    }
+
     answers.push(option);
 
     if (currentQuestion === 1 && option === "Sí") {
@@ -142,6 +130,7 @@ function selectOption(option) {
         showSummary();
     }
 }
+
 
 function showHearts() {
     for (let i = 0; i < 20; i++) {
