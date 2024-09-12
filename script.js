@@ -2,7 +2,7 @@ const questions = [
     {
         question: "¿Lista para comenzar esta maravillosa aventura conmigo?",
         options: ["Sí, estoy lista"],
-        type: "choice"
+         type: "choice"
     },
     
     {
@@ -10,11 +10,7 @@ const questions = [
         options: ["Sí, con todo mi corazón", "No"],
         type: "choice"
     },
-    {
-        question: "¿Estás completamente segur@?",
-        options: ["Sí, estoy segur@", "Déjame pensarlo de nuevo"],
-        type: "choice"
-    },
+
     {
         question: "¿Cuál es nuestro próximo destino de ensueño, cariño?",
         options: ["Ica", "Machu Picchu", "Otro"],
