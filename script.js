@@ -1,25 +1,10 @@
 const questions = [
     {
         question: "¿Lista para comenzar esta maravillosa aventura conmigo?",
-        options: ["Sí, estoy lista", "No, deja lo pienso"],
+        options: ["Sí, estoy lista"],
         type: "choice"
     },
-    {
-        question: "Yo sé que sí quieres, mi amor",
-        options: ["Sí, era bromita amor", "No, en serio necesito pensarlo"],
-        type: "choice"
-    },
-    {
-        question: "Yo sé que sí quieres, mi amor",
-        options: ["Sí, era bromita amor", "No, en serio quiero pensarlo"],
-        type: "choice",
-        message: "COME MRD PS"
-    },
-    {
-        question: "¿Aún no? Vamos, mi amor, no me hagas esperar",
-        options: ["Está bien, vamos a la siguiente pregunta"],
-        type: "choice"
-    },
+    
     {
         question: "¿Me amas, mi amor?",
         options: ["Sí, con todo mi corazón", "No"],
