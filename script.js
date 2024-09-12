@@ -1,16 +1,29 @@
 const questions = [
     {
-        question: "¿Lista para comenzar esta maravillosa aventura conmigo?",
-        options: ["Sí, estoy lista"],
-         type: "choice"
-    },
-    
-    {
-        question: "¿Me amas, mi amor?",
-        options: ["Sí, con todo mi corazón", "No"],
+        question: "¿List@ para comenzar esta maravillosa aventura conmigo?",
+        options: ["Sí, estoy list@", "No, necesito pensarlo"],
         type: "choice"
     },
-
+    {
+        question: "yo se que si",
+        options: ["Sí, era bormita amor", "No"],
+        type: "choice"
+    },
+    {
+        question: "aun no? come mierda",
+        options: ["vamos a la pregunta"],
+        type: "choice"
+    },
+    {
+        question: "¿Me amas, mi amor?",
+        options: ["Sí", "No"],
+        type: "choice"
+    },
+    {
+        question: "¿Me amas, mi amor?",
+        options: ["Sí", "No"],
+        type: "choice"
+    },
     {
         question: "¿Cuál es nuestro próximo destino de ensueño, cariño?",
         options: ["Ica", "Machu Picchu", "Otro"],
@@ -22,8 +35,8 @@ const questions = [
     },
     {
         question: "Antes de finalizar, quiero decirte algo muy especial, mi amor...",
-        message: "Nunca lo olvides: TÚ ERES LA MEJOR, LA MÁS HERMOSA Y BELLA. Por favor, no olvides cuánto te amo. Eres la dueña de mi corazón. ¡Eres mi princesa y te amooooooooo con mi alma y todo mi corazón! ❤️💖",
-        options: ["Yo también te amo con todo mi ser", "Necesito tiempo para procesar esto"],
+        message: "Nunca lo olvides QUE TU ERES LA MEJOR LA MAS HERMOSA Y BELLA porfavor no olvides de cuánto te amo eres la que esta de mi corazón. ¡Eres mi princesa y te amooooooooo con mi alma y todo mi corazon! ❤️💖",
+        options: ["Sí, yo también te amo", "No, no siento lo mismo"],
         type: "choice"
     }
 ];
@@ -50,51 +63,43 @@ restartButton.addEventListener('click', restartSurvey);
 whatsappButton.addEventListener('click', shareOnWhatsApp);
 
 function startSurvey() {
-    welcomeScreen.classList.add('animate__animated', 'animate__fadeOut');
-    setTimeout(() => {
-        welcomeScreen.classList.add('hidden');
-        surveyScreen.classList.remove('hidden');
-        surveyScreen.classList.add('animate__animated', 'animate__fadeIn');
-        showQuestion();
-        updateProgressBar();
-    }, 500);
+    welcomeScreen.classList.add('hidden');
+    surveyScreen.classList.remove('hidden');
+    showQuestion();
+    updateProgressBar();
 }
 
 function showQuestion() {
     const question = questions[currentQuestion];
-    questionContainer.innerHTML = `<h2 class="animate__animated animate__bounceIn">${question.question}</h2>`;
+    questionContainer.innerHTML = `<h2>${question.question}</h2>`;
     optionsContainer.innerHTML = '';
 
     if (question.message) {
-        questionContainer.innerHTML += `<p class="animate__animated animate__fadeIn">${question.message}</p>`;
+        questionContainer.innerHTML += `<p>${question.message}</p>`;
     }
 
     if (question.type === 'choice') {
         question.options.forEach((option, index) => {
             const button = document.createElement('button');
             button.textContent = option;
-            button.classList.add('btn-secondary', 'animate__animated', 'animate__fadeInUp');
+            button.classList.add('btn-secondary', 'animate__animated', 'animate__fadeIn');
             button.style.animationDelay = `${index * 0.1}s`;
             button.addEventListener('click', () => selectOption(option));
             optionsContainer.appendChild(button);
         });
     } else if (question.type === 'slider') {
-        const sliderContainer = document.createElement('div');
-        sliderContainer.classList.add('slider-container', 'animate__animated', 'animate__fadeIn');
-        
         const slider = document.createElement('input');
         slider.type = 'range';
         slider.min = '1';
         slider.max = '10';
         slider.value = '5';
+        slider.classList.add('animate__animated', 'animate__fadeIn');
         
         const sliderValue = document.createElement('span');
         sliderValue.textContent = slider.value;
-        sliderValue.classList.add('slider-value');
         
         slider.addEventListener('input', () => {
             sliderValue.textContent = slider.value;
-            sliderValue.style.left = `${(slider.value - 1) * 11.1}%`;
         });
         
         const submitButton = document.createElement('button');
@@ -102,9 +107,8 @@ function showQuestion() {
         submitButton.classList.add('btn-primary', 'animate__animated', 'animate__fadeIn');
         submitButton.addEventListener('click', () => selectOption(slider.value));
         
-        sliderContainer.appendChild(slider);
-        sliderContainer.appendChild(sliderValue);
-        optionsContainer.appendChild(sliderContainer);
+        optionsContainer.appendChild(slider);
+        optionsContainer.appendChild(sliderValue);
         optionsContainer.appendChild(submitButton);
     }
 
@@ -118,14 +122,7 @@ function showQuestion() {
         const submitButton = document.createElement('button');
         submitButton.textContent = 'Confirmar';
         submitButton.classList.add('btn-primary', 'animate__animated', 'animate__fadeIn');
-        submitButton.addEventListener('click', () => {
-            if (input.value.trim() !== '') {
-                selectOption(input.value);
-            } else {
-                input.classList.add('animate__shakeX');
-                setTimeout(() => input.classList.remove('animate__shakeX'), 1000);
-            }
-        });
+        submitButton.addEventListener('click', () => selectOption(input.value));
         optionsContainer.appendChild(submitButton);
     }
 }
@@ -133,19 +130,14 @@ function showQuestion() {
 function selectOption(option) {
     answers.push(option);
 
-    if (currentQuestion === 3 && option.toLowerCase().includes('sí')) {
+    if (currentQuestion === 1 && option === "Sí") {
         showHearts();
     }
 
     if (currentQuestion < questions.length - 1) {
         currentQuestion++;
-        surveyScreen.classList.add('animate__animated', 'animate__fadeOut');
-        setTimeout(() => {
-            surveyScreen.classList.remove('animate__fadeOut');
-            showQuestion();
-            surveyScreen.classList.add('animate__fadeIn');
-            updateProgressBar();
-        }, 500);
+        showQuestion();
+        updateProgressBar();
     } else {
         showSummary();
     }
@@ -154,7 +146,7 @@ function selectOption(option) {
 function showHearts() {
     for (let i = 0; i < 20; i++) {
         const heart = document.createElement('div');
-        heart.className = 'heart animate__animated animate__fadeInUp';
+        heart.className = 'heart';
         heart.style.left = `${Math.random() * 100}vw`;
         heart.style.animationDuration = `${Math.random() * 3 + 2}s`;
         heart.style.fontSize = `${Math.random() * 20 + 10}px`;
@@ -162,49 +154,37 @@ function showHearts() {
         heartsContainer.appendChild(heart);
 
         setTimeout(() => {
-            heart.classList.remove('animate__fadeInUp');
-            heart.classList.add('animate__fadeOutUp');
-            setTimeout(() => heart.remove(), 1000);
-        }, 4000);
+            heart.remove();
+        }, 5000);
     }
 }
 
 function showSummary() {
-    surveyScreen.classList.add('animate__animated', 'animate__fadeOut');
-    setTimeout(() => {
-        surveyScreen.classList.add('hidden');
-        summaryScreen.classList.remove('hidden');
-        summaryScreen.classList.add('animate__animated', 'animate__fadeIn');
+    surveyScreen.classList.add('hidden');
+    summaryScreen.classList.remove('hidden');
 
-        const summaryContent = document.getElementById('summary-content');
-        summaryContent.innerHTML = `
-            <p class="animate__animated animate__fadeInUp"><strong>¿Lista para comenzar?:</strong> ${answers[0]}</p>
-            <p class="animate__animated animate__fadeInUp" style="animation-delay: 0.1s"><strong>Confirmación:</strong> ${answers[1]}</p>
-            <p class="animate__animated animate__fadeInUp" style="animation-delay: 0.2s"><strong>¿Me amas?:</strong> ${answers[4]}</p>
-            <p class="animate__animated animate__fadeInUp" style="animation-delay: 0.3s"><strong>Confirmación de amor:</strong> ${answers[5]}</p>
-            <p class="animate__animated animate__fadeInUp" style="animation-delay: 0.4s"><strong>Nuestro próximo destino:</strong> ${answers[6]}</p>
-            <p class="animate__animated animate__fadeInUp" style="animation-delay: 0.5s"><strong>Nivel de amor (1-10):</strong> ${answers[7]}</p>
-            <p class="animate__animated animate__fadeInUp" style="animation-delay: 0.6s"><strong>Mensaje final de amor:</strong> ${answers[8]}</p>
-        `;
-    }, 500);
+    const summaryContent = document.getElementById('summary-content');
+    summaryContent.innerHTML = `
+        <p><strong>¿List@ para comenzar?:</strong> ${answers[0]}</p>
+        <p><strong>¿Me amas?:</strong> ${answers[1]}</p>
+        <p><strong>Lugar próximo de viaje:</strong> ${answers[2]}</p>
+        <p><strong>Nivel de amor (1-10):</strong> ${answers[3]}</p>
+        <p><strong>Mensaje Especial de Amor:</strong> ${answers[4]}</p>
+    `;
 }
 
 function updateProgressBar() {
-    const progress = ((currentQuestion + 1) / questions.length) * 100;
+    const progress = (currentQuestion / questions.length) * 100;
     progressBar.style.width = `${progress}%`;
 }
 
 function restartSurvey() {
     currentQuestion = 0;
     answers.length = 0;
-    summaryScreen.classList.add('animate__animated', 'animate__fadeOut');
-    setTimeout(() => {
-        summaryScreen.classList.add('hidden');
-        surveyScreen.classList.remove('hidden');
-        surveyScreen.classList.add('animate__animated', 'animate__fadeIn');
-        showQuestion();
-        updateProgressBar();
-    }, 500);
+    summaryScreen.classList.add('hidden');
+    surveyScreen.classList.remove('hidden');
+    showQuestion();
+    updateProgressBar();
 }
 
 function shareOnWhatsApp() {
@@ -213,14 +193,14 @@ function shareOnWhatsApp() {
     window.open(`https://wa.me/${phoneNumber}?text=${message}`, '_blank');
 }
 
+// Inicializar corazones flotantes
 function initFloatingHearts() {
     setInterval(() => {
         const heart = document.createElement('div');
-        heart.className = 'heart background-heart';
+        heart.className = 'heart';
         heart.style.left = `${Math.random() * 100}vw`;
         heart.style.animationDuration = `${Math.random() * 3 + 2}s`;
         heart.style.fontSize = `${Math.random() * 10 + 5}px`;
-        heart.style.opacity = '0.3';
         heart.innerHTML = '❤️';
         heartsContainer.appendChild(heart);
 
