@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Una encuesta de amor especial creada con cariño por BRAYANCHOQUE">
+    <title>Encuesta de Amor Especial | BRAYANCHOQUE</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js"></script>
+</head>
+<body>
+    <div id="particles-js"></div>
+    <main id="app">
+        <section id="welcome-screen" class="screen animate__animated animate__fadeIn">
+            <h1 class="main-title">¡Bienvenida, mi amor! 🌟</h1>
+            <h2 class="subtitle">Hecho con todo mi corazón <span class="author">(BRAYANCHOQUE)</span> ❤️</h2>
+            <button id="start-button" class="btn-primary animate__animated animate__pulse animate__infinite">¡Vamos a comenzar, cariño!</button>
+        </section>
+
+        <section id="survey-screen" class="screen hidden">
+            <div id="progress-container">
+                <div id="progress-bar"></div>
+            </div>
+            <div id="question-container" aria-live="polite"></div>
+            <div id="options-container"></div>
+        </section>
+
+        <section id="summary-screen" class="screen hidden">
+            <h2 class="summary-title">Resumen de nuestro amor 💌</h2>
+            <div id="summary-content"></div>
+            <div class="button-container">
+                <button id="restart-button" class="btn-secondary">Volver a empezar</button>
+                <button id="whatsapp-button" class="btn-primary">Enviar por WhatsApp</button>
+            </div>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+    <script>
+        particlesJS.load('particles-js', 'particles.json', function() {
+            console.log('Particles loaded');
+        });
+    </script>
+</body>
+</html>
+
+    <div id="hearts-container"></div>
+    
+    <script src="script.js"></script>
+</body>
+</html>
